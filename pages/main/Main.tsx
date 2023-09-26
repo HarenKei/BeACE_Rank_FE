@@ -1,10 +1,13 @@
-import MainBanner from "./MainBanner";
 import styled from "styled-components";
+
+import MainBanner from "./MainBanner";
+import MainIntro from "./MainIntro";
 
 const Main = () => {
   return (
     <MainContainer>
       <MainBanner />
+      <MainIntro />
     </MainContainer>
   );
 };
