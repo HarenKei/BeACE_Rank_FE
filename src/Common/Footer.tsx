@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Link from 'next/link'
 
 const Footer = () =>{
     return(
@@ -7,10 +8,12 @@ const Footer = () =>{
                 BeACE.RANK
             </Logo>
             <Privacy>
-                <a href={'/'}>▷개인정보 처리 방침</a>
+                <Link href="/">
+                    <a>▷개인정보 처리 방침</a>
+                </Link>
             </Privacy>
             <Copyright>
-                Copyright 2023. 사나이클럽. All rights reserved.
+                <p>Copyright 2023. 사나이클럽. All rights reserved.</p>
             </Copyright>
         </FooterContainer>
     );
@@ -26,16 +29,17 @@ const FooterContainer = styled.div`
 
 const Logo = styled.div`
     color: black;
-    font-size: 36px;
+    font-size: 2.25em; // 36px
     font-family: Noto Sans;
     font-weight: 700;
     word-wrap: break-word;
     justify-content: center;
+    margin-bottom: 1em;
 `;
 
 const Privacy = styled.div`
     color: black;
-    font-size: 16px;
+    font-size: 1em; // 16px
     font-family: Noto Sans;
     font-weight: 500;
     word-wrap: break-word;
@@ -43,11 +47,14 @@ const Privacy = styled.div`
 `;
 const Copyright = styled.div`
     color: black;
-    font-size: 16px;
+    font-size: 1em;
     font-family: Noto Sans;
     font-weight: 500;
     word-wrap: break-word;
     justify-content: center;
+    p{
+        margin-top: 0.5em;
+    }
 `;
 
 export default Footer;

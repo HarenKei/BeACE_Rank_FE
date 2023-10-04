@@ -60,6 +60,7 @@ const BarContainer = styled.div`
 
 const Category = styled.div`
     display:flex;
+    flex-direction: row;
     justify-content: flex-start;
     ul {list-style-type: style type none;;}
     ul li {display:inline;}
