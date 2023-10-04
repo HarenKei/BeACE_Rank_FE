@@ -4,10 +4,9 @@ import RankingMain from "./RankingMain";
 const Ranking = () => {
   return (
     <RankingContainer>
-    랭킹페이지
-    <RankingMain/>
+      <RankingMain />
     </RankingContainer>
-  )
+  );
 };
 
 const RankingContainer = styled.div`
@@ -15,6 +14,7 @@ const RankingContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-bottom: 5rem;
 `;
 
 export default Ranking;
