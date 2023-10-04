@@ -1,9 +1,11 @@
+import Main from "./main/Main";
+
 const Home = () => {
-  return(
+  return (
     <>
-      <h1> 냥냥</h1>
+      <Main />
     </>
-  )
-}
+  );
+};
 
 export default Home;

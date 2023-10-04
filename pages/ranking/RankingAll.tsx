@@ -1,7 +1,12 @@
 import styled from "styled-components";
+import ListTable from "@/src/Common/ListTable";
 
 const RankingAll = () => {
-  return <>RankingAll</>
+  return (
+    <>
+    <ListTable/>
+    </>
+  )
 };
 
 export default RankingAll;
