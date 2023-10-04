@@ -250,7 +250,6 @@ const TheadStyle = styled.thead`
   font-weight: 900;
   color: #1e98fd;
 
-  
   th {
     height: 3rem;
     border-bottom: 3px solid #1e98fd;
@@ -259,7 +258,7 @@ const TheadStyle = styled.thead`
 
 const TbodyStyle = styled.tbody`
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 400;
   padding-left: 100px;
   tr {
     height: 2rem;

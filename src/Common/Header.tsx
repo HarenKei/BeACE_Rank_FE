@@ -1,69 +1,79 @@
 import styled from "styled-components";
+import Link from "next/link";
 
 const Header = () => {
-
-    return (
-        <HeaderContainer>
-            <LogoContainer>
-                <Logo>
-                    <a href={"/"}>BeAce_Rank</a>
-                </Logo>
-                <Login>
-                    <a href={"/"}>로그인</a>
-                </Login>
-            </LogoContainer>
-            <BarContainer>
-                <Category>
-                    <ul>
-                        <li>BeACE?</li>
-                        <li>로드맵</li>
-                        <li>랭킹</li>
-                        <li>ACE</li>
-                    </ul>
-                </Category>
-            </BarContainer>
-        </HeaderContainer>
-    );
-}
+  return (
+    <HeaderContainer>
+      <UpperContainer>
+        <p>로고</p>
+        <p>로그인</p>
+      </UpperContainer>
+      <LowerContainer>
+        <MenuContainer>
+          <Menu>
+            <Link href={"/"}>
+              <p>BeACE?</p>
+            </Link>
+            <Link href={"/"}>
+              <p>로드맵</p>
+            </Link>
+            <Link href={"/"}>
+              <p>랭킹</p>
+            </Link>
+            <Link href={"/"}>
+              <p>명예의 전당</p>
+            </Link>
+          </Menu>
+        </MenuContainer>
+      </LowerContainer>
+    </HeaderContainer>
+  );
+};
 
 const HeaderContainer = styled.div`
-    width: 1920px;
-    height: 130px;
-    display: flex;
-    flex-direction: column;
+  width: 1920px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
-const LogoContainer = styled.div`
-    width: 1920px;
-    height: 80px;
-    display: flex;
-    flex-direction: row;
+const UpperContainer = styled.div`
+  width: 1200px;
+  height: 60%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `;
 
-const Logo = styled.div`
-    color: #0096C8;
-    display: flex;
-    justify-content: flex-start;
+const LowerContainer = styled.div`
+  width: 100%;
+  height: 40%;
+  background-color: #0096c8;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
-const Login = styled.div`
-    display: flex;
-    justify-content: flex-end;
+const MenuContainer = styled.div`
+  width: 1200px;
 `;
 
-const BarContainer = styled.div`
-    width: 1920px;
-    height: 50px;
-    display: flex;
-    flex-direction: row;
-`;
+const Menu = styled.div`
+  width: 30%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 
-const Category = styled.div`
-    display:flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    ul {list-style-type: style type none;;}
-    ul li {display:inline;}
+  p {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+  }
 `;
 
 export default Header;
