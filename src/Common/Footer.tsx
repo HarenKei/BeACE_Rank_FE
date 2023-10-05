@@ -5,9 +5,13 @@ const Footer = () => {
   return (
     <FooterContainer>
       <FooterContents>
-        <Logo>BeACE.RANK</Logo>
+        <Link href={"/"}>
+          <Logo>
+            <h1>BeACE.RANK</h1>
+          </Logo>
+        </Link>
         <Privacy>
-          <Link href="/">▷개인정보 처리 방침</Link>
+          <Link href={"/privacy"}>▷개인정보 처리 방침</Link>
         </Privacy>
         <Copyright>
           <p>Copyright 2023. 사나이클럽. All rights reserved.</p>
@@ -33,14 +37,19 @@ const FooterContents = styled.div`
 `;
 
 const Logo = styled.div`
-  color: black;
-  font-size: 2.25em; // 36px
-  font-family: Noto Sans;
-  font-weight: 700;
-  word-wrap: break-word;
   justify-content: center;
   margin-top: 1rem;
   margin-bottom: 1em;
+
+  h1 {
+    font-size: 2.25em; // 36px
+    font-family: Noto Sans;
+    font-weight: 700;
+    letter-spacing: -0.1rem;
+    background: linear-gradient(100deg, #1e98fd, #ff00f7);
+    color: transparent;
+    -webkit-background-clip: text;
+  }
 `;
 
 const Privacy = styled.div`
