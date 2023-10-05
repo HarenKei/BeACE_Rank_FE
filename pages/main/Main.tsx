@@ -1,5 +1,4 @@
 import styled from "styled-components";
-
 import MainBanner from "./MainBanner";
 import MainIntro from "./MainIntro";
 import MainMenu from "./MainMenu";
@@ -7,11 +6,11 @@ import MainMenu from "./MainMenu";
 const Main = () => {
   return (
     <MainContainer>
-      <MainBanner />
-      <MainIntro />
-      <MainMenu />
+      <MainBanner/>
+      <MainIntro/>
+      <MainMenu/>
     </MainContainer>
-  );
+  )
 };
 
 const MainContainer = styled.div`

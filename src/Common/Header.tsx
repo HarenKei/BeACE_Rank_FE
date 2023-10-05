@@ -1,69 +1,94 @@
 import styled from "styled-components";
+import Link from "next/link";
 
 const Header = () => {
-
-    return (
-        <HeaderContainer>
-            <LogoContainer>
-                <Logo>
-                    <a href={"/"}>BeAce_Rank</a>
-                </Logo>
-                <Login>
-                    <a href={"/"}>로그인</a>
-                </Login>
-            </LogoContainer>
-            <BarContainer>
-                <Category>
-                    <ul>
-                        <li>BeACE?</li>
-                        <li>로드맵</li>
-                        <li>랭킹</li>
-                        <li>ACE</li>
-                    </ul>
-                </Category>
-            </BarContainer>
-        </HeaderContainer>
-    );
-}
+  return (
+    <HeaderContainer>
+      <UpperContainer>
+        <Link href={"/"}>
+          <h1>BeACE RANK</h1>
+        </Link>
+        <Link href={"/login"}>
+          <p>로그인</p>
+        </Link>
+      </UpperContainer>
+      <LowerContainer>
+        <MenuContainer>
+          <Menu>
+            <Link
+              href={"https://job.daelim.ac.kr/cms/FrCon/index.do?MENU_ID=120"}
+            >
+              <p>BeACE?</p>
+            </Link>
+            <Link href={"/program"}>
+              <p>로드맵</p>
+            </Link>
+            <Link href={"/ranking"}>
+              <p>랭킹</p>
+            </Link>
+            <Link href={"/honor"}>
+              <p>명예의 전당</p>
+            </Link>
+          </Menu>
+        </MenuContainer>
+      </LowerContainer>
+    </HeaderContainer>
+  );
+};
 
 const HeaderContainer = styled.div`
-    width: 1920px;
-    height: 130px;
-    display: flex;
-    flex-direction: column;
+  width: 100%;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
-const LogoContainer = styled.div`
-    width: 1920px;
-    height: 80px;
-    display: flex;
-    flex-direction: row;
+const UpperContainer = styled.div`
+  width: 1200px;
+  height: 60%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  h1 {
+    font-size: 2em;
+    font-weight: 900;
+    letter-spacing: -0.1rem;
+    background: linear-gradient(94deg, #1e98fd, #ff00f7);
+    color: transparent;
+    -webkit-background-clip: text;
+  }
 `;
 
-const Logo = styled.div`
-    color: #0096C8;
-    display: flex;
-    justify-content: flex-start;
+const LowerContainer = styled.div`
+  width: 100%;
+  height: 40%;
+  background-color: #0096c8;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
-const Login = styled.div`
-    display: flex;
-    justify-content: flex-end;
+const MenuContainer = styled.div`
+  width: 1200px;
 `;
 
-const BarContainer = styled.div`
-    width: 1920px;
-    height: 50px;
-    display: flex;
-    flex-direction: row;
-`;
+const Menu = styled.div`
+  width: 30%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 
-const Category = styled.div`
-    display:flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    ul {list-style-type: style type none;;}
-    ul li {display:inline;}
+  p {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+  }
 `;
 
 export default Header;
