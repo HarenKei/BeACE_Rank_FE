@@ -5,22 +5,28 @@ const Header = () => {
   return (
     <HeaderContainer>
       <UpperContainer>
-        <p>로고</p>
-        <p>로그인</p>
+        <Link href={"/"}>
+          <h1>BeACE RANK</h1>
+        </Link>
+        <Link href={"/login"}>
+          <p>로그인</p>
+        </Link>
       </UpperContainer>
       <LowerContainer>
         <MenuContainer>
           <Menu>
-            <Link href={"/"}>
+            <Link
+              href={"https://job.daelim.ac.kr/cms/FrCon/index.do?MENU_ID=120"}
+            >
               <p>BeACE?</p>
             </Link>
-            <Link href={"/"}>
+            <Link href={"/program"}>
               <p>로드맵</p>
             </Link>
-            <Link href={"/"}>
+            <Link href={"/ranking"}>
               <p>랭킹</p>
             </Link>
-            <Link href={"/"}>
+            <Link href={"/honor"}>
               <p>명예의 전당</p>
             </Link>
           </Menu>
@@ -46,6 +52,15 @@ const UpperContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
+  h1 {
+    font-size: 2em;
+    font-weight: 900;
+    letter-spacing: -0.1rem;
+    background: linear-gradient(94deg, #1e98fd, #ff00f7);
+    color: transparent;
+    -webkit-background-clip: text;
+  }
 `;
 
 const LowerContainer = styled.div`
