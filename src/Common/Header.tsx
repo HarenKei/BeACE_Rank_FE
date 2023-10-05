@@ -31,7 +31,7 @@ const Header = () => {
 };
 
 const HeaderContainer = styled.div`
-  width: 1920px;
+  width: 100%;
   height: 120px;
   display: flex;
   flex-direction: column;
