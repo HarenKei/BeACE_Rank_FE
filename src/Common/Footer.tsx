@@ -18,7 +18,7 @@ const Footer = () => {
 };
 
 const FooterContainer = styled.div`
-  width: 1920px;
+  width: 100%;
   padding-bottom: 2rem;
   display: flex;
   justify-content: center;
