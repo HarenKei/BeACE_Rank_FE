@@ -31,7 +31,7 @@ const MainBannerContainer = styled.div`
   width: 100%;
   height: 580px;
 
-  background-image: url("https://s3-alpha-sig.figma.com/img/246b/d5dd/7d1f94b88494d9fc679d34c3982f88ee?Expires=1696809600&Signature=JHFxrm~V95Zn~IubNm9r~Jr28uxiTSUhJad0AEDKY5tCIZiIhuLYBzOtWpZo1mvnVAum58iuXhuuzzIQg~iAsxL3qNZezQ5pamZxErCQqVp4jTR~OSyn-KmiRLcFbCkI8GWw5xDrTzXsoONRC42t-PibtX~ZXSS8zdHka2rIDwF7apliyMAUnQj1D8eXmhGChFZNgGH1FldrMA78KlZibuGPILilY-dytld5f4FovuGZwWh-VZ66cAkgZmxF5-YDA4KqCYUU~f99ejDbLpk3vzVDW3tkZhN1WHsnYNyzKkSLX1Pu8BZbKSku1fJlvg~gALkkQ9OyZDHeZdFsKQfayA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4");
+  background-image: url("https://cdn.news.unn.net/news/photo/202111/518240_320941_5119.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 `;
@@ -59,7 +59,7 @@ const ContentsContainer = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 6.5rem;
+  font-size: 6.5em;
   letter-spacing: -0.3rem;
   background: linear-gradient(94deg, #1e98fd, #ff00f7);
   color: transparent;
