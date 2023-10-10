@@ -1,8 +1,7 @@
 import { useState, useEffect, MouseEventHandler } from "react";
 import styled from "styled-components";
-import ListTable from "@/src/Common/ListTable";
 import RankingAll from "./RankingAll";
-import axios from "axios";
+
 
 const RankingMain = () => {
   const [category, setCategory] = useState<string>("1");
@@ -54,7 +53,6 @@ const RankingMain = () => {
       </RankingTitle>
 
       {category === "1" && <RankingAll />}
-      {category === "2" && <ListTable />}
     </RankingMainContainer>
   );
 };
