@@ -2,14 +2,30 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 
 
-const ListTable = ({head , list} : {head : string[], list : React.ReactNode[][]} ) => {
+const ListTable = ({head , list, offset, limit} : {head : string[], list : React.ReactNode[][], offset: number, limit: number} ) => {
   const [isMounted, setMounted] = useState(false);
-
-  console.log(list);
+  const [data, setData] = useState<React.ReactNode[][]>([]);
 
   useEffect(() => {
     setMounted(true);
   }, []); // Prevent hydration error
+
+  useEffect(() => {
+    setData(list);
+  }, [list])
+
+//   {posts.slice(offset, offset + limit).map(({ id, title, body }) => (
+//     <article key={id}>
+//       <h3>
+//         {id}. {title}
+//       </h3>
+//       <p>{body}</p>
+//     </article>
+//   ))}
+// </main>
+// </Layout>
+// );
+// }
 
   return (
     isMounted && (
@@ -20,7 +36,7 @@ const ListTable = ({head , list} : {head : string[], list : React.ReactNode[][]}
           ))}
         </TheadStyle>
         <TbodyStyle>
-          {list.map((row, index) => (
+          {data.slice(offset, offset + limit).map((row, index) => (
             <tr key={index}>
               {row.map((col, index) => (
                 <td key={index}>{col}</td>

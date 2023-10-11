@@ -3,6 +3,8 @@ import axios from "axios";
 import ListTable from "@/src/Common/ListTable";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Pagination from "@/src/Common/Pagination";
+
 
 const tableHead = [
   "랭킹",
@@ -37,69 +39,73 @@ interface userData {
 // },
 
 const RankingAll = () => {
-  const limit: number = 30;
-  const [limitPage, setLimitPage] = useState<number>(0);
-  const [rankingLegnth, setRankingLength] = useState<number>(0);
+  const limit: number = 30; //랭킹 목록 제한
+  const [curPage, setCurPage] = useState<number>(1); //현재 페이지
+  const [limitPage, setLimitPage] = useState<number>(0); //최대 페이지 개수
+  const [offset, setOffset] = useState<number>(0);
+  const [allListLen, setAllListLen] = useState<number>(0);
   const [rankingAll, setRankingAll] = useState<React.ReactNode[][]>([]);
+  const [rankingAllTest, setRankingAllTest] = useState<React.ReactNode[][][]>(
+    []
+  );
 
   const refactorData = (list: userData[]) => {
     let tmpArray: React.ReactNode[][] = [];
 
-    for (let i = 0; i < 3; i++) {
+    list.forEach((item, i) => {
       if (i === 0) {
         tmpArray.push([
           <Gold key={i}>{i + 1}</Gold>,
           <Image key={i} src="/" width={1} height={1} alt={""} />,
-          <p key={i}>{list[i].id}</p>,
-          <p key={i}>{list[i].name}</p>,
-          <p key={i}>{list[i].deptId}</p>,
-          <p key={i}>{list[i].score}</p>,
-          <p key={i}>{list[i].score * 2}</p>,
+          <p key={i}>{item.id}</p>,
+          <p key={i}>{item.name}</p>,
+          <p key={i}>{item.deptId}</p>,
+          <p key={i}>{item.score}</p>,
+          <p key={i}>{item.score * 2}</p>,
         ]);
       } else if (i === 1) {
         tmpArray.push([
           <Silver key={i}>{i + 1}</Silver>,
           <Image key={i} src="/" width={1} height={1} alt={""} />,
-          <p key={i}>{list[i].id}</p>,
-          <p key={i}>{list[i].name}</p>,
-          <p key={i}>{list[i].deptId}</p>,
-          <p key={i}>{list[i].score}</p>,
-          <p key={i}>{list[i].score * 2}</p>,
+          <p key={i}>{item.id}</p>,
+          <p key={i}>{item.name}</p>,
+          <p key={i}>{item.deptId}</p>,
+          <p key={i}>{item.score}</p>,
+          <p key={i}>{item.score * 2}</p>,
         ]);
-      } else {
+      } else if (i === 2) {
         tmpArray.push([
           <Bronze key={i}>{i + 1}</Bronze>,
           <Image key={i} src="/" width={1} height={1} alt={""} />,
-          <p key={i}>{list[i].id}</p>,
-          <p key={i}>{list[i].name}</p>,
-          <p key={i}>{list[i].deptId}</p>,
-          <p key={i}>{list[i].score}</p>,
-          <p key={i}>{list[i].score * 2}</p>,
+          <p key={i}>{item.id}</p>,
+          <p key={i}>{item.name}</p>,
+          <p key={i}>{item.deptId}</p>,
+          <p key={i}>{item.score}</p>,
+          <p key={i}>{item.score * 2}</p>,
+        ]);
+      } else {
+        tmpArray.push([
+          <p key={i}>{i + 1}</p>,
+          <Image key={i} src="/" width={1} height={1} alt={""} />,
+          <p key={i}>{item.id}</p>,
+          <p key={i}>{item.name}</p>,
+          <p key={i}>{item.deptId}</p>,
+          <p key={i}>{item.score}</p>,
+          <p key={i}>{item.score * 2}</p>,
         ]);
       }
-    }
-
-    for (let i = 3; i < list.length; i++) {
-      tmpArray.push([
-        <p key={i}>{i + 1}</p>,
-        <Image key={i} src="/" width={1} height={1} alt={""} />,
-        <p key={i}>{list[i].id}</p>,
-        <p key={i}>{list[i].name}</p>,
-        <p key={i}>{list[i].deptId}</p>,
-        <p key={i}>{list[i].score}</p>,
-        <p key={i}>{list[i].score * 2}</p>,
-      ]);
-    }
+    })
     setRankingAll(tmpArray);
   };
+
 
   useEffect(() => {
     axios
       .get("http://localhost:8080/userList")
       .then(function (response) {
         // 성공 핸들링
+        setAllListLen(response.data.length);
         refactorData(response.data);
-        setRankingLength(response.data.length);
         console.log("Loaded All Ranking Data");
       })
       .catch(function (error) {
@@ -111,22 +117,34 @@ const RankingAll = () => {
       });
   }, []);
 
-  useEffect(() => {
-    console.log(rankingLegnth);
-    setLimitPage(Math.ceil(rankingLegnth / 30));
-  }, [rankingLegnth]);
 
   useEffect(() => {
-    console.log(limitPage);
-  }, [limitPage]);
+    console.log(rankingAllTest);
+  }, [rankingAllTest]);
+
+  useEffect(()=> {
+    setOffset((curPage - 1) * limit);
+  },[curPage]);
+
+  useEffect(()=> {
+  }, [offset]);
 
   return (
-    <>
-      <ListTable head={tableHead} list={rankingAll} />
-    </>
+    <ListAllContainer>
+      <ListTable head={tableHead} list={rankingAll} offset={offset} limit={limit} />
+      {/* <ListTable head={tableHead} list={rankingAll} /> */}
+      <Pagination listLen={allListLen} limit={limit} curPage={curPage} setCurPage={setCurPage}/>
+    </ListAllContainer>
   );
 };
 
+const ListAllContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 const Gold = styled.p`
   color: #e38b29;
   font-weight: 900;
