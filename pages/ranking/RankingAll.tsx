@@ -27,27 +27,13 @@ interface userData {
   create_at: Date;
 }
 
-// //{
-//   "id": "201920211",
-//   "name": "오시영",
-//   "deptId": 1,
-//   "score": 30,
-//   "grade": 3,
-//   "deviation": 0.0,
-//   "password": "Pr0t3ct",
-//   "created_at": "2023-10-09T05:53:22.000+00:00"
-// },
-
 const RankingAll = () => {
   const limit: number = 30; //랭킹 목록 제한
   const [curPage, setCurPage] = useState<number>(1); //현재 페이지
-  const [limitPage, setLimitPage] = useState<number>(0); //최대 페이지 개수
   const [offset, setOffset] = useState<number>(0);
   const [allListLen, setAllListLen] = useState<number>(0);
   const [rankingAll, setRankingAll] = useState<React.ReactNode[][]>([]);
-  const [rankingAllTest, setRankingAllTest] = useState<React.ReactNode[][][]>(
-    []
-  );
+
 
   const refactorData = (list: userData[]) => {
     let tmpArray: React.ReactNode[][] = [];
@@ -61,7 +47,7 @@ const RankingAll = () => {
           <p key={i}>{item.name}</p>,
           <p key={i}>{item.deptId}</p>,
           <p key={i}>{item.score}</p>,
-          <p key={i}>{item.score * 2}</p>,
+          <p key={i}>{Math.ceil(item.score * 7 * 0.1)}</p>,
         ]);
       } else if (i === 1) {
         tmpArray.push([
@@ -71,7 +57,7 @@ const RankingAll = () => {
           <p key={i}>{item.name}</p>,
           <p key={i}>{item.deptId}</p>,
           <p key={i}>{item.score}</p>,
-          <p key={i}>{item.score * 2}</p>,
+          <p key={i}>{Math.ceil(item.score * 7 * 0.1)}</p>,
         ]);
       } else if (i === 2) {
         tmpArray.push([
@@ -81,7 +67,7 @@ const RankingAll = () => {
           <p key={i}>{item.name}</p>,
           <p key={i}>{item.deptId}</p>,
           <p key={i}>{item.score}</p>,
-          <p key={i}>{item.score * 2}</p>,
+          <p key={i}>{Math.ceil(item.score * 7 * 0.1)}</p>,
         ]);
       } else {
         tmpArray.push([
@@ -91,7 +77,7 @@ const RankingAll = () => {
           <p key={i}>{item.name}</p>,
           <p key={i}>{item.deptId}</p>,
           <p key={i}>{item.score}</p>,
-          <p key={i}>{item.score * 2}</p>,
+          <p key={i}>{Math.ceil(item.score * 7 * 0.1)}</p>,
         ]);
       }
     })
@@ -101,7 +87,7 @@ const RankingAll = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/userList")
+      .get("http://localhost:8080/allRanking")
       .then(function (response) {
         // 성공 핸들링
         setAllListLen(response.data.length);
@@ -117,13 +103,9 @@ const RankingAll = () => {
       });
   }, []);
 
-
-  useEffect(() => {
-    console.log(rankingAllTest);
-  }, [rankingAllTest]);
-
   useEffect(()=> {
     setOffset((curPage - 1) * limit);
+    //오프셋 (페이지 시작점) 적용.
   },[curPage]);
 
   useEffect(()=> {
@@ -133,7 +115,7 @@ const RankingAll = () => {
     <ListAllContainer>
       <ListTable head={tableHead} list={rankingAll} offset={offset} limit={limit} />
       {/* <ListTable head={tableHead} list={rankingAll} /> */}
-      <Pagination listLen={allListLen} limit={limit} curPage={curPage} setCurPage={setCurPage}/>
+      <Pagination listLen={200} limit={limit} curPage={curPage} setCurPage={setCurPage}/>
     </ListAllContainer>
   );
 };
