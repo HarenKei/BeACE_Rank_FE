@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import axios from "axios";
+import axios, { all } from "axios";
 import ListTable from "@/src/Common/ListTable";
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -108,14 +108,10 @@ const RankingAll = () => {
     //오프셋 (페이지 시작점) 적용.
   },[curPage]);
 
-  useEffect(()=> {
-  }, [offset]);
-
   return (
     <ListAllContainer>
       <ListTable head={tableHead} list={rankingAll} offset={offset} limit={limit} />
-      {/* <ListTable head={tableHead} list={rankingAll} /> */}
-      <Pagination listLen={200} limit={limit} curPage={curPage} setCurPage={setCurPage}/>
+      <Pagination listLen={allListLen} limit={limit} curPage={curPage} setCurPage={setCurPage}/>
     </ListAllContainer>
   );
 };

@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import {
+  FontAwesomeIcon,
+} from "@fortawesome/react-fontawesome";
+import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
   listLen: number;
@@ -14,10 +18,12 @@ interface Props {
 //setCurPage : 현재 페이지 갱신용 함수.
 
 const Pagination = ({ listLen, limit, curPage, setCurPage }: Props) => {
-  const numPages : number = Math.ceil(listLen / limit); //페이지 개수
-  const paginationLimit : number = 5;
-  const [curPagination, setCurPaginaiton] = useState<number>(1);
-  const [paginationOffset, setPageinationOffset] = useState<number>(1);
+  const paginationLimit: number = 5; //페이지네이션 당 5개의 항목으로 제한 1 ~ 5, 6 ~ 10...
+  const numPages: number = Math.ceil(listLen / limit); //만들어야 할 페이지의 갯수
+  const [curPagination, setCurPaginaiton] = useState<number>(1); //현재 pagination의 index
+  const [paginationOffset, setPageinationOffset] = useState<number>(1); //pagination의 시작 지점 (offset)
+  const [paginationArray, setPaginationArray] = useState<Array<number>>([]); //pagination을 사용할 numPages만큼의 배열
+  const numPagination: number = Math.ceil(numPages / paginationLimit); //pagination의 pagination 갯수
 
   const onClickHandler = (e: React.MouseEvent) => {
     console.log((e.target as HTMLParagraphElement).id);
@@ -25,65 +31,82 @@ const Pagination = ({ listLen, limit, curPage, setCurPage }: Props) => {
   };
 
   const onClickHandlerPagination = (e: React.MouseEvent) => {
-    const id: string = (e.target as HTMLButtonElement).id;
-    console.log((e.target as HTMLButtonElement).id);
+    const value: string = (e.target as any).id;
+    console.log((e.target as any).id);
 
-    if(id === "decrease") {
+    if (value === "decrease") {
       setCurPaginaiton(curPagination - 1);
-    } else if(id === "increase") {
+    } else if (value === "increase") {
       setCurPaginaiton(curPagination + 1);
+      
     }
-  }
+  };
 
-  useEffect(()=> {
-    console.log(`curPagination ${curPagination}`);
+  useEffect(() => {
     setPageinationOffset((curPagination - 1) * paginationLimit);
-  }, [curPagination])
+    setCurPage(curPagination * paginationLimit - 4);
+  }, [curPagination]);
 
-  // useEffect(() => {
-  //   if(curPage === ((paginationLimit * curPagination) - 1)) {
-  //     setCurPaginaiton(curPagination + 1);
-  //   }
-  // }, [curPage])
+  useEffect(() => {
+    let arr: Array<number> = Array(numPages)
+      .fill()
+      .map((item, index) => {
+        return index;
+      });
+    setPaginationArray(arr);
+  }, [numPages]);
 
   return (
     <PaginationContainer>
-      <PaginationButton id={"decrease"} onClick={onClickHandlerPagination}/>
-      {Array(numPages)
-        .fill()
+      {curPagination >= 2 && (
+        <PaginationButton id={"decrease"} onClick={onClickHandlerPagination}>
+          <FontAwesomeIcon icon={faAngleLeft} size="2x" color="#1e98fd" />
+        </PaginationButton>
+      )}
+      {paginationArray
         .slice(paginationOffset, paginationOffset + paginationLimit)
         .map((item, index) => (
           <Button key={index}>
             <p
-              id={(index + 1).toString()}
-              className={`page ${curPage === index + 1 ? "active" : ""}`}
+              id={(item + 1).toString()}
+              className={`page ${curPage === item + 1 ? "active" : ""}`}
               onClick={onClickHandler}
             >
-              {index + 1}
+              {item + 1}
             </p>
           </Button>
         ))}
-        <PaginationButton id={"increase"} onClick={onClickHandlerPagination}/>
+      {curPagination != numPagination && (
+        <PaginationButton id={"increase"} onClick={onClickHandlerPagination}>
+          <FontAwesomeIcon icon={faAngleRight} size="2x" color="#1e98fd" />
+        </PaginationButton>
+      )}
     </PaginationContainer>
   );
 };
 
 const PaginationContainer = styled.div`
   margin-top: 3rem;
-
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 `;
 
-const PaginationButton = styled.button`
-  width: 3rem;
-  background-color: red;
-`
+const PaginationButton = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  svg {
+    pointer-events: none;
+  }
+`;
 
 const Button = styled.div`
-  width: 2rem;
-  height: 2rem;
-  margin-right: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;

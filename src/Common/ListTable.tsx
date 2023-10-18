@@ -1,8 +1,14 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 
+interface Props {
+  head: string[];
+  list: React.ReactNode[][];
+  offset: number;
+  limit: number;
+}
 
-const ListTable = ({head , list, offset, limit} : {head : string[], list : React.ReactNode[][], offset: number, limit: number} ) => {
+const ListTable = ({ head, list, offset, limit }: Props) => {
   const [isMounted, setMounted] = useState(false);
   const [data, setData] = useState<React.ReactNode[][]>([]);
 
@@ -12,20 +18,7 @@ const ListTable = ({head , list, offset, limit} : {head : string[], list : React
 
   useEffect(() => {
     setData(list);
-  }, [list])
-
-//   {posts.slice(offset, offset + limit).map(({ id, title, body }) => (
-//     <article key={id}>
-//       <h3>
-//         {id}. {title}
-//       </h3>
-//       <p>{body}</p>
-//     </article>
-//   ))}
-// </main>
-// </Layout>
-// );
-// }
+  }, [list]);
 
   return (
     isMounted && (
