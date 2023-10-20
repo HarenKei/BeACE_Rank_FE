@@ -1,6 +1,7 @@
 import { useState, useEffect, MouseEventHandler } from "react";
 import styled from "styled-components";
 import RankingAll from "./RankingAll";
+import RankingGrade from "./RankingGrade";
 
 
 const RankingMain = () => {
@@ -53,6 +54,7 @@ const RankingMain = () => {
       </RankingTitle>
 
       {category === "1" && <RankingAll />}
+      {category === "4" && <RankingGrade/>}
     </RankingMainContainer>
   );
 };

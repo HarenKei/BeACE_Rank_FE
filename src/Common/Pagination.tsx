@@ -26,13 +26,11 @@ const Pagination = ({ listLen, limit, curPage, setCurPage }: Props) => {
   const numPagination: number = Math.ceil(numPages / paginationLimit); //pagination의 pagination 갯수
 
   const onClickHandler = (e: React.MouseEvent) => {
-    console.log((e.target as HTMLParagraphElement).id);
     setCurPage(Number((e.target as HTMLParagraphElement).id));
   };
 
   const onClickHandlerPagination = (e: React.MouseEvent) => {
     const value: string = (e.target as any).id;
-    console.log((e.target as any).id);
 
     if (value === "decrease") {
       setCurPaginaiton(curPagination - 1);
