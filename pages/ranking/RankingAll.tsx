@@ -19,7 +19,7 @@ const tableHead = [
 interface userData {
   id: string;
   name: string;
-  deptId: number;
+  deptId: string;
   score: number;
   grade: number;
   deviation: number;

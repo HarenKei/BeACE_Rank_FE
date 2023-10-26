@@ -20,29 +20,6 @@ const HonorMain = () => {
   const navClickHandler = (e: React.MouseEvent) => {
     setCategory((e.target as HTMLParagraphElement).id);
   };
-  
-  const dropDownHandler = (e: any) => { // 적절한 타입을 찾지 못함.
-    setGrade((e.target as any).value);
-  };
-
-  const [toggle, setToggle] = useState<boolean>(true);
-  const toggleHandler = () => {
-    const reverse = !toggle;
-    setToggle(reverse)
-  }
-
-  const handlers = () => {
-    navClickHandler;
-    toggleHandler;
-  }
-  
-    useEffect(() => {
-      console.log(category);
-    }, [category]);
-
-    useEffect(() => {
-      console.log(grade);
-    }, [grade]);
 
   return (
     <HonorMainContainer>
@@ -69,7 +46,6 @@ const HonorMain = () => {
       </HonorTitle>
 
       {category === "1" && <HonorScholarship /> }
-      {grade === "1" && <ListTable />}
       {category === "2" && <HonorAward />}
     </HonorMainContainer>
   );
