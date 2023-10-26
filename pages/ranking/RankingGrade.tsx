@@ -42,8 +42,11 @@ interface userData {
   create_at: Date;
 }
 
-const HonorScholarship = () => {
-  const limit: number = 39; //랭킹 목록 제한
+const RankingGrade = () => {
+  const limit: number = 30; //랭킹 목록 제한
+  const [curPage, setCurPage] = useState<number>(1); //현재 페이지
+  const [offset, setOffset] = useState<number>(0);
+  const [allListLen, setAllListLen] = useState<number>(0);
   const [rankingAll, setRankingAll] = useState<React.ReactNode[][]>([]);
   const [option, setOption] = useState<number>(1);
 
@@ -101,6 +104,7 @@ const HonorScholarship = () => {
       .get(`http://localhost:8080/gradeRanking?grade=${option}`)
       .then(function (response) {
         // 성공 핸들링
+        setAllListLen(response.data.length);
         refactorData(response.data);
         console.log("Loaded All Ranking Data");
       })
@@ -113,10 +117,15 @@ const HonorScholarship = () => {
       });
   }, [option]);
 
+  useEffect(() => {
+    setOffset((curPage - 1) * limit);
+    //오프셋 (페이지 시작점) 적용.
+  }, [curPage]);
+
   return (
     <ListAllContainer>
       <SelectGrade>
-        <h1>{option}학년</h1>
+        <h1>{option}학년 랭킹</h1>
         <SelectBox
           selectOption={selectOption}
           setOption={setOption}
@@ -127,8 +136,14 @@ const HonorScholarship = () => {
         <ListTable
           head={tableHead}
           list={rankingAll}
-          offset={0}
+          offset={offset}
           limit={limit}
+        />
+        <Pagination
+          listLen={allListLen}
+          limit={limit}
+          curPage={curPage}
+          setCurPage={setCurPage}
         />
       </ListContainer>
     </ListAllContainer>
@@ -145,7 +160,7 @@ const ListAllContainer = styled.div`
 `;
 
 const SelectGrade = styled.div`
-  width: 18%;
+  width: 23%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -177,4 +192,4 @@ const Bronze = styled.p`
   font-weight: 900;
 `;
 
-export default HonorScholarship;
+export default RankingGrade;
