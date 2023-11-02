@@ -101,7 +101,7 @@ const RankingGrade = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/gradeRanking?grade=${option}`)
+      .get(`${process.env.NEXT_PUBLIC_API_BASE}/gradeRanking?grade=${option}`)
       .then(function (response) {
         // 성공 핸들링
         setAllListLen(response.data.length);
@@ -126,10 +126,7 @@ const RankingGrade = () => {
     <ListAllContainer>
       <SelectGrade>
         <h1>{option}학년 랭킹</h1>
-        <SelectBox
-          selectOption={selectOption}
-          setOption={setOption}
-        />
+        <SelectBox selectOption={selectOption} setOption={setOption} />
       </SelectGrade>
 
       <ListContainer>
@@ -176,7 +173,7 @@ const ListContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`
+`;
 const Gold = styled.p`
   color: #e38b29;
   font-weight: 900;

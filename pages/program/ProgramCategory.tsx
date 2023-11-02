@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import ListTable from "@/src/Common/ListTable";
 import Pagination from "@/src/Common/Pagination";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
 
@@ -24,7 +24,11 @@ interface programData {
   host: string;
 }
 
-const ProgramAll = () => {
+interface Category {
+  category: string;
+}
+
+const ProgramCategory = ({ category }: Category) => {
   const limit: number = 30; //랭킹 목록 제한
   const [curPage, setCurPage] = useState<number>(1); //현재 페이지
   const [offset, setOffset] = useState<number>(0);
@@ -52,17 +56,18 @@ const ProgramAll = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_BASE}/allRoadMap`)
+      .get(
+        `${process.env.NEXT_PUBLIC_API_BASE}/findMainCategory?mainCategory=${category}`
+      )
       .then((response) => {
         setAllListLen(response.data.length);
         refactorData(response.data);
-        console.log("Loaded All Ranking Data");
       })
       .catch((error) => {
         console.log(error);
       })
       .finally(() => {});
-  }, []);
+  }, [category]);
 
   useEffect(() => {
     setOffset((curPage - 1) * limit);
@@ -94,4 +99,4 @@ const ProgramAllContainer = styled.div`
   align-items: center;
 `;
 
-export default ProgramAll;
+export default ProgramCategory;

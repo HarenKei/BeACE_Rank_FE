@@ -5,35 +5,25 @@ import Pagination from "@/src/Common/Pagination";
 import axios from "axios";
 import Image from "next/image";
 
+const tableHead = ["랭킹", "티어", "학번", "이름", "학과", "이수완료"];
 
-
-const tableHead = [
-    "랭킹",
-    "티어",
-    "학번",
-    "이름",
-    "학과",
-    "이수완료"
-  ];
-  
-  interface userData {
-    id: string;
-    name: string;
-    deptId: string;
-    score: number;
-    grade: number;
-    deviation: number;
-    password: string;
-    create_at: Date;
-  }
+interface userData {
+  id: string;
+  name: string;
+  deptId: string;
+  score: number;
+  grade: number;
+  deviation: number;
+  password: string;
+  create_at: Date;
+}
 
 const HonorAward = () => {
-    const limit: number = 30; //랭킹 목록 제한
+  const limit: number = 30; //랭킹 목록 제한
   const [curPage, setCurPage] = useState<number>(1); //현재 페이지
   const [offset, setOffset] = useState<number>(0);
   const [allListLen, setAllListLen] = useState<number>(0);
   const [rankingAll, setRankingAll] = useState<React.ReactNode[][]>([]);
-
 
   const refactorData = (list: userData[]) => {
     let tmpArray: React.ReactNode[][] = [];
@@ -76,14 +66,13 @@ const HonorAward = () => {
           <p key={i}>{item.score}</p>,
         ]);
       }
-    })
+    });
     setRankingAll(tmpArray);
   };
 
-
   useEffect(() => {
     axios
-      .get("http://localhost:8080/awardRanking")
+      .get("http://175.119.142.160:24681/awardRanking")
       .then(function (response) {
         // 성공 핸들링
         setAllListLen(response.data.length);
@@ -99,15 +88,25 @@ const HonorAward = () => {
       });
   }, []);
 
-  useEffect(()=> {
+  useEffect(() => {
     setOffset((curPage - 1) * limit);
     //오프셋 (페이지 시작점) 적용.
-  },[curPage]);
+  }, [curPage]);
 
   return (
     <ListAllContainer>
-      <ListTable head={tableHead} list={rankingAll} offset={offset} limit={limit} />
-      <Pagination listLen={allListLen} limit={limit} curPage={curPage} setCurPage={setCurPage}/>
+      <ListTable
+        head={tableHead}
+        list={rankingAll}
+        offset={offset}
+        limit={limit}
+      />
+      <Pagination
+        listLen={allListLen}
+        limit={limit}
+        curPage={curPage}
+        setCurPage={setCurPage}
+      />
     </ListAllContainer>
   );
 };
