@@ -1,19 +1,31 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
-
+import ProgramAll from "./ProgramAll";
+import ProgramCategory from "./ProgramCategory";
 
 const ProgramMain = () => {
   const [category, setCategory] = useState<string>("1");
+  const [listCategory, setListCategory] = useState<string>("");
 
   const navClickHandler = (e: React.MouseEvent) => {
     setCategory((e.target as HTMLParagraphElement).id);
   };
 
   useEffect(() => {
-     console.log(category);
+    if(category === "2") {
+      setListCategory("Basic");
+    } else if (category === "3") {
+      setListCategory("Educational");
+    } else if (category === "4") {
+      setListCategory("Active");
+    } else if (category === "5") {
+      setListCategory("Creative");
+    } else if(category === "6") {
+      setListCategory("Ethical");
+    }
   }, [category]);
-  
-  return(
+
+  return (
     <ProgramMainContainer>
       <ProgramTitle>
         <h1>BeACE 로드맵</h1>
@@ -64,10 +76,13 @@ const ProgramMain = () => {
           </p>
         </Category>
       </ProgramTitle>
+
+      {category === "1" && <ProgramAll />}
+      {category !== "1" && <ProgramCategory category={listCategory} />}
     </ProgramMainContainer>
   );
 };
-  
+
 const ProgramMainContainer = styled.div`
   width: 1200px;
   margin-top: 3.2rem;
@@ -99,7 +114,7 @@ const ProgramTitle = styled.div`
     cursor: pointer;
   }
 
-  .menu.active{
+  .menu.active {
     color: #1e98fd;
     font-weight: 900;
   }
@@ -115,4 +130,4 @@ const Category = styled.div`
   align-items: center;
 `;
 
-  export default ProgramMain;
+export default ProgramMain;

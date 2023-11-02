@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Pagination from "@/src/Common/Pagination";
 
-
 const tableHead = [
   "랭킹",
   "티어",
@@ -19,7 +18,7 @@ const tableHead = [
 interface userData {
   id: string;
   name: string;
-  deptId: number;
+  deptId: string;
   score: number;
   grade: number;
   deviation: number;
@@ -33,7 +32,6 @@ const RankingAll = () => {
   const [offset, setOffset] = useState<number>(0);
   const [allListLen, setAllListLen] = useState<number>(0);
   const [rankingAll, setRankingAll] = useState<React.ReactNode[][]>([]);
-
 
   const refactorData = (list: userData[]) => {
     let tmpArray: React.ReactNode[][] = [];
@@ -80,14 +78,13 @@ const RankingAll = () => {
           <p key={i}>{Math.ceil(item.score * 7 * 0.1)}</p>,
         ]);
       }
-    })
+    });
     setRankingAll(tmpArray);
   };
 
-
   useEffect(() => {
     axios
-      .get("http://localhost:8080/allRanking")
+      .get(`${process.env.NEXT_PUBLIC_API_BASE}/allRanking`)
       .then(function (response) {
         // 성공 핸들링
         setAllListLen(response.data.length);
@@ -103,15 +100,25 @@ const RankingAll = () => {
       });
   }, []);
 
-  useEffect(()=> {
+  useEffect(() => {
     setOffset((curPage - 1) * limit);
     //오프셋 (페이지 시작점) 적용.
-  },[curPage]);
+  }, [curPage]);
 
   return (
     <ListAllContainer>
-      <ListTable head={tableHead} list={rankingAll} offset={offset} limit={limit} />
-      <Pagination listLen={allListLen} limit={limit} curPage={curPage} setCurPage={setCurPage}/>
+      <ListTable
+        head={tableHead}
+        list={rankingAll}
+        offset={offset}
+        limit={limit}
+      />
+      <Pagination
+        listLen={allListLen}
+        limit={limit}
+        curPage={curPage}
+        setCurPage={setCurPage}
+      />
     </ListAllContainer>
   );
 };

@@ -98,7 +98,7 @@ const HonorScholarship = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/gradeRanking?grade=${option}`)
+      .get(`http://175.119.142.160:24681/gradeRanking?grade=${option}`)
       .then(function (response) {
         // 성공 핸들링
         refactorData(response.data);
@@ -117,10 +117,7 @@ const HonorScholarship = () => {
     <ListAllContainer>
       <SelectGrade>
         <h1>{option}학년</h1>
-        <SelectBox
-          selectOption={selectOption}
-          setOption={setOption}
-        />
+        <SelectBox selectOption={selectOption} setOption={setOption} />
       </SelectGrade>
 
       <ListContainer>
@@ -161,7 +158,7 @@ const ListContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`
+`;
 const Gold = styled.p`
   color: #e38b29;
   font-weight: 900;
