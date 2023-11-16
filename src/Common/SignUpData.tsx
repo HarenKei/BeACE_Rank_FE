@@ -3,31 +3,28 @@ import { useEffect } from "react";
 import axios from "axios";
 
 const SignUpData = () => {
+    // 회원가입을 위해 필요한 값들.
     const [id, setId] = useState("");
     const [name, setName] = useState("");
+    const [deptName, setDeptName] = useState("");
+    const [currentBeACEScore, setCurrentBeACEScore] = useState<number>(1);
+    const [grade, setGrade] = useState<number>(1);
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+
+    // 사용자 편의를 위한 메시지를 띄우기 위해 필요한 값들.
     const [msgPw, setMsgPw] = useState("");
-    const [checkPassword, setCheckPassword] = useState("");
-    const [msgCheckPw, setMsgCheckPw] = useState("");
     const [pwState, setPwState] = useState<boolean>();
-    const [checkPwState, setCheckPwState] = useState<boolean>();
     const [idToken, setIdToken] = useState<boolean>();
 
     // useState 비동기에 주의..
+    // 비밀번호가 
     const validatePw = async () => {
         if(password.length > 10) {
             setMsgPw("최대 10자리까지 가능합니다.");
             setPwState(false);
         } else {
             setMsgPw("");
-            if (checkPassword === password){
-                setMsgCheckPw("");
-                setCheckPwState(true);
-
-            } else {
-                setMsgCheckPw("비밀번호와 일치하지 않습니다.");
-                setCheckPwState(false);
-            }
         }
     }
 
@@ -56,9 +53,13 @@ const SignUpData = () => {
         
             // 이후 회원가입 로직
             const signUpResponse = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE}/signUp`, {
-                userId: id, //학번
+                id: id, //학번
                 name: name,
+                deptName: deptName,
+                currentBeACEScore: currentBeACEScore,
+                grade: grade,
                 password: password,
+                confirmPassword: confirmPassword,
             });
 
             // 회원가입 성공 시
@@ -77,12 +78,17 @@ const SignUpData = () => {
             <button id="duplicateCheckBtn" onClick={checkDuplication}>중복확인</button><br />
             <label>이름:</label><br/>
             <input className="signUp" type="text" onChange={event => {setName(event.target.value);}}></input><br/>
+            <label>학과:</label><br/>
+            <input className="signUp" type="text" onChange={event => {setDeptName(event.target.value);}}></input><br />
+            <label>BeACE 점수:</label><br/>
+            <input className="signUp" type="text" onChange={event => {setCurrentBeACEScore(event.target.valueAsNumber);}}></input><br />
+            <label>학년</label><br/>
+            <input className="signUp" type="text" onChange={event => {setGrade(event.target.valueAsNumber);}}></input><br />
             <label>비밀번호:</label><br/>
             <input className="signUp" type="password" onChange={event => {setPassword(event.target.value); validatePw();}}></input><br/>
             {msgPw && <p style={{color:"red"}}>{msgPw}</p>}
             <label>비밀번호 확인:</label><br/>
-            <input className="signUp" type="password" onChange={event => {setCheckPassword(event.target.value); validatePw();}}></input><br/>
-            {msgCheckPw && <p style={{color:"red"}}>{msgCheckPw}</p>}
+            <input className="signUp" type="password" onChange={event => {setConfirmPassword(event.target.value);}}></input><br/>
 
             <button type="submit" id="signUpBtn" onClick={submit}>회원가입</button>
         </form>
