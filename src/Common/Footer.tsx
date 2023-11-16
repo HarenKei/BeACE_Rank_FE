@@ -42,11 +42,12 @@ const Logo = styled.div`
   margin-bottom: 1em;
 
   h1 {
+    width: min-content;
     font-size: 2.25em; // 36px
     font-family: Noto Sans;
     font-weight: 700;
     letter-spacing: -0.1rem;
-    background: linear-gradient(100deg, #1e98fd, #ff00f7);
+    background: linear-gradient(90deg, #1e98fd, #ff00f7);
     color: transparent;
     -webkit-background-clip: text;
   }
