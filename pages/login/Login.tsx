@@ -1,15 +1,17 @@
 import styled from "styled-components";
 import LoginData from "@/src/Common/LoginData";
+import Link from "next/link";
 
 const Login = () => {
+
   return (
     <>
       <LoginContainer>
         <LoginFormContainer>
-          <h1>BeAce Rank</h1>
+          <h1>BeACE Rank</h1>
           <LoginData />
           <h5>아이디가 없다면?</h5>
-          <button type="submit" id="signIn">회원가입 하러가기</button>
+          <button type="button" id="signIn"><Link href="/signUp">회원가입 하러가기</Link></button>
         </LoginFormContainer>
       </LoginContainer>
     </>
