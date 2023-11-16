@@ -17,7 +17,7 @@ const SignUpData = () => {
     const [pwState, setPwState] = useState<boolean>();
     const [idToken, setIdToken] = useState<boolean>();
 
-    // useState 비동기에 주의..
+    // useState 비동기에 주의...
     // 비밀번호가 
     const validatePw = async () => {
         if(password.length > 10) {
