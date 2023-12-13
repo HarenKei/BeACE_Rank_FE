@@ -39,7 +39,7 @@ const ProgramAll = () => {
         <p key={i}>{i + 1}</p>,
         <p key={i}>{item.mainCategory}</p>,
         <p key={i}>{item.middleCategory}</p>,
-        <Link key={i} href={"/"}>
+        <Link key={i} href={`/program/${item.id}`}>
           <p key={i}>{item.name}</p>
         </Link>,
         <p key={i}>{item.point}</p>,
