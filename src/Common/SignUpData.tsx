@@ -1,6 +1,17 @@
 import { use, useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+import { useRouter } from "next/router";
+
+interface signUp {
+    id: string,
+    name: string,
+    deptName: string,
+    currentBeACEScore: number,
+    grade: number,
+    password: string,
+    confirmPassword: string,
+}
 
 interface SignUp {
   id: string;

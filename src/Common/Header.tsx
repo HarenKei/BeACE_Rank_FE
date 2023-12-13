@@ -1,16 +1,26 @@
 import styled from "styled-components";
 import Link from "next/link";
+import { useCookie } from "@/src/Common/Cookie";
+import LogoutButton from "./LogoutButton";
 
 const Header = () => {
+  const { cookieValue } = useCookie();
+
   return (
     <HeaderContainer>
       <UpperContainer>
         <Link href={"/"}>
           <h1>BeACE RANK</h1>
         </Link>
-        <Link href={"/login"}>
-          <p>로그인</p>
-        </Link>
+        {cookieValue ? (
+          // 쿠키 값이 존재하는 경우 (로그인한 경우)
+          <LogoutButton />
+        ) : (
+          // 쿠키 값이 없는 경우 (로그인 필요한 경우)
+          <Link href="/login">
+            <p>로그인</p>
+          </Link>
+        )}
       </UpperContainer>
       <LowerContainer>
         <MenuContainer>
